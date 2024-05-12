@@ -7,6 +7,7 @@ const RealTimeWeather = () => {
   const API_KEY = "DaE8bFEKDdGcZCuB098PHmNZbuCrD1Gw";
   const [searchItem, setSearchItem] = useContext(WeatherContext);
   const [time, setTime] = useState();
+  const [isLoading, setIsLoading] = useState(false);
   const [apiData, setApiData] = useState(
     {
       "data": {
@@ -34,6 +35,18 @@ const RealTimeWeather = () => {
           "windSpeed": 8.94
         }}}
   );
+
+  const successCallback = (position) => {
+    console.log(position);
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
+  };
+  
+  const errorCallback = (error) => {
+    console.log(error);
+  };
+  
+  const id = navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
 
   const currentDate = new Date();
 
